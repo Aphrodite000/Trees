@@ -50,13 +50,16 @@ public class Trees {
     //返回前序链表
     public static List<Integer> preOrder(Node root) {
       if(root==null){
+          //如果树为空，则返回一个空的链表  （用链表实现的list）
               return new LinkedList<>();
           }
           //跟+左子树+右子树；
-          List<Integer> list=new LinkedList<>();
+          List<Integer> list=new LinkedList<>();//本次递归的结果集，第一次的是最终的结果集
+          //树不为空，先创建一个表，再得到它的左子树的前序链表和右子树的前序链表
           List<Integer> leftPreOrder=preOrder(root.left);
           List<Integer> rightPreOrder=preOrder(root.right);
 
+          //把当前节点存入链表，然后将他的左列表放入，右列表放入
           list.add(root.value);
           list.addAll(leftPreOrder);
           list.addAll(rightPreOrder);
@@ -139,11 +142,12 @@ public class Trees {
         }
         int left=calcKLevel(root.left,k-1);
         int right=calcKLevel(root.right,k-1);
+        //左子树第k层节点加上右子树第k层结点
         int count=left+right;
 
         return count;
     }
-    //查找数中有没有这个结点
+    //查找树中有没有这个结点
     public static Node search(Node root,int val){
         if(root==null){
             return null;
@@ -153,7 +157,8 @@ public class Trees {
         }
         //除了这两种可能之外，会一直去左子树找
         Node left=search(root.left,val);
-        //如果Left为空就不能来到判断这一步，会一直调用上面的方法
+        //如果left为空就不能来到判断这一步，会一直调用上面的方法
+        //如果left为空说明左树没找到，如果不为空，说明找到了，
         if(left!=null){
             return left;
         }
@@ -161,6 +166,7 @@ public class Trees {
         if(right!=null){
             return right;
         }
+        //都没有找到则返回null
         return null;
     }
     //两个数互为镜像
